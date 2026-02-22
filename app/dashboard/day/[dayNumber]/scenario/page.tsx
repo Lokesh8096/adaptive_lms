@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
+import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
 import {
   SCENARIO_REQUIRED_COUNT,
@@ -18,7 +19,6 @@ type Question = {
   id: string
   prompt: string
   correct_answer: string | null
-  answer?: string | null
 }
 
 export default function ScenarioPage() {
@@ -35,6 +35,12 @@ export default function ScenarioPage() {
   const [loading, setLoading] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [isUnlocked, setIsUnlocked] = useState(false)
+  const [progressState, setProgressState] = useState({
+    recapCompleted: false,
+    interviewCompleted: false,
+    scenarioCompleted: false,
+    quizCompleted: false,
+  })
 
   const targetCount = Math.min(SCENARIO_REQUIRED_COUNT, totalCount)
   const hasMore = questions.length < totalCount
@@ -88,7 +94,9 @@ export default function ScenarioPage() {
 
       const { data: progress, error } = await supabase
         .from('student_day_progress')
-        .select('interview_completed,scenario_checked')
+        .select(
+          'recap_completed,interview_completed,scenario_checked,scenario_completed,quiz_completed'
+        )
         .eq('student_id', data.user.id)
         .eq('day_number', dayNumber)
         .maybeSingle()
@@ -102,6 +110,12 @@ export default function ScenarioPage() {
       setIsUnlocked(unlocked)
       setUserId(data.user.id)
       setChecked(normalizeStringArray(progress?.scenario_checked))
+      setProgressState({
+        recapCompleted: Boolean(progress?.recap_completed),
+        interviewCompleted: Boolean(progress?.interview_completed),
+        scenarioCompleted: Boolean(progress?.scenario_completed),
+        quizCompleted: Boolean(progress?.quiz_completed),
+      })
 
       if (unlocked) {
         await loadQuestions(0, false)
@@ -134,7 +148,13 @@ export default function ScenarioPage() {
 
       if (error) {
         console.error('Failed to sync scenario completion', error)
+        return
       }
+
+      setProgressState((prev) => ({
+        ...prev,
+        scenarioCompleted: isComplete,
+      }))
     }
 
     syncCompletion()
@@ -166,14 +186,28 @@ export default function ScenarioPage() {
   if (!isUnlocked) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold">Scenario - Day {dayNumber}</h1>
-        <p>Complete interview target to unlock scenario.</p>
-        <Link
-          href={`/dashboard/day/${dayNumber}/interview`}
-          className="text-blue-600 underline"
-        >
-          Go to Interview
-        </Link>
+        <LearningPathNav
+          dayNumber={dayNumber}
+          currentSection="scenario"
+          progress={{
+            recapCompleted: progressState.recapCompleted,
+            interviewCompleted: progressState.interviewCompleted,
+            scenarioCompleted: progressState.scenarioCompleted,
+            quizCompleted: progressState.quizCompleted,
+          }}
+        />
+        <div className="surface-card p-5">
+          <h1 className="text-2xl font-bold">Scenario - Day {dayNumber}</h1>
+          <p className="mt-2 muted-text">
+            Complete interview target to unlock scenario.
+          </p>
+          <Link
+            href={`/dashboard/day/${dayNumber}/interview`}
+            className="quick-btn mt-4 inline-block"
+          >
+            Go to Interview
+          </Link>
+        </div>
       </div>
     )
   }
@@ -186,6 +220,18 @@ export default function ScenarioPage() {
           Complete the required scenario practice to unlock quiz.
         </p>
       </div>
+
+      <LearningPathNav
+        dayNumber={dayNumber}
+        currentSection="scenario"
+        progress={{
+          recapCompleted: progressState.recapCompleted,
+          interviewCompleted: progressState.interviewCompleted,
+          scenarioCompleted: progressState.scenarioCompleted || isComplete,
+          quizCompleted: progressState.quizCompleted,
+        }}
+      />
+
       <p className="text-sm muted-text">
         Completed {checked.length} of {targetCount || 0}
       </p>
@@ -193,14 +239,14 @@ export default function ScenarioPage() {
       {questions.length === 0 && <p>No scenario questions available.</p>}
 
       {questions.map((q, index) => {
-        const answer = q.correct_answer ?? q.answer ?? null
+        const answer = (q.correct_answer ?? '').trim()
         return (
           <div key={q.id} className="surface-card p-5">
             <h3 className="font-semibold mb-2">
               {index + 1}. {q.prompt}
             </h3>
 
-            {answer && (
+            {answer.length > 0 && (
               <p className="muted-text mb-4">
                 <span className="font-medium">Answer:</span> {answer}
               </p>

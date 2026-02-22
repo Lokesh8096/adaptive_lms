@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { ReactNode, useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import AppBrand from '@/components/app-brand'
 import ThemeToggle from '@/components/theme-toggle'
 import { getAccessContext } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
@@ -63,7 +62,7 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    router.replace('/login')
+    router.replace('/')
   }
 
   if (checkingAccess) {
@@ -87,16 +86,18 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen">
       <header className="border-b border-[var(--border)] bg-[var(--bg-soft)]">
-        <div className="mx-auto max-w-7xl px-4 py-4 md:px-6">
+        <div className="mx-auto max-w-7xl px-4 py-5 md:px-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-5">
-              <AppBrand compact />
-              <nav className="hidden items-center gap-3 md:flex">
+              <Link href="/admin" className="text-lg font-extrabold tracking-wide">
+                Admin LMS
+              </Link>
+              <nav className="hidden items-center gap-2 md:flex">
                 {adminLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`nav-link ${
+                    className={`nav-btn ${
                       pathname === link.href ? 'active' : ''
                     }`}
                   >
@@ -119,8 +120,8 @@ export default function AdminLayout({
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full border px-3 py-1.5 text-sm ${
-                  pathname === link.href ? 'nav-link active' : 'nav-link'
+                className={`nav-btn ${
+                  pathname === link.href ? 'active' : ''
                 }`}
               >
                 {link.label}

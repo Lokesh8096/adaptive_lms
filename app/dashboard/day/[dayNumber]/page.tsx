@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
+import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
 import { parseDayNumber } from '@/lib/helpers'
 import { supabase } from '@/lib/supabase'
@@ -78,6 +79,31 @@ export default function DayPage() {
     )
   }
 
+  const recapDone = Boolean(progress?.recap_completed)
+  const interviewDone = Boolean(progress?.interview_completed)
+  const scenarioDone = Boolean(progress?.scenario_completed)
+  const quizDone = Boolean(progress?.quiz_completed)
+
+  const getNextSectionLabel = () => {
+    if (!recapDone) return 'Recap'
+    if (!interviewDone) return 'Interview'
+    if (!scenarioDone) return 'Scenario'
+    if (!quizDone) return 'Quiz'
+    return 'Completed'
+  }
+
+  const nextSectionLabel = getNextSectionLabel()
+  const nextSectionHref =
+    nextSectionLabel === 'Recap'
+      ? `/dashboard/day/${dayNumber}/recap`
+      : nextSectionLabel === 'Interview'
+        ? `/dashboard/day/${dayNumber}/interview`
+        : nextSectionLabel === 'Scenario'
+          ? `/dashboard/day/${dayNumber}/scenario`
+          : nextSectionLabel === 'Quiz'
+            ? `/dashboard/day/${dayNumber}/quiz`
+            : null
+
   return (
     <div className="space-y-6">
       <div className="surface-card p-5 md:p-6">
@@ -86,6 +112,34 @@ export default function DayPage() {
           Complete each section in order to unlock the next one.
         </p>
       </div>
+
+      {!loading && (
+        <LearningPathNav
+          dayNumber={dayNumber}
+          currentSection={null}
+          progress={{
+            recapCompleted: recapDone,
+            interviewCompleted: interviewDone,
+            scenarioCompleted: scenarioDone,
+            quizCompleted: quizDone,
+          }}
+        />
+      )}
+
+      {!loading && (
+        <div className="surface-card p-4 md:p-5">
+          <p className="text-sm muted-text">Recommended Next Action</p>
+          {nextSectionHref ? (
+            <Link href={nextSectionHref} className="quick-btn mt-3 inline-block">
+              Continue with {nextSectionLabel}
+            </Link>
+          ) : (
+            <p className="mt-2 text-green-700 font-semibold">
+              Day {dayNumber} is fully completed.
+            </p>
+          )}
+        </div>
+      )}
 
       {loading && <p>Loading progress...</p>}
 

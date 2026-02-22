@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { ReactNode, useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import AppBrand from '@/components/app-brand'
 import ThemeToggle from '@/components/theme-toggle'
 import { getAccessContext } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
@@ -62,7 +61,7 @@ export default function DashboardLayout({
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    router.replace('/login')
+    router.replace('/')
   }
 
   if (checkingSession) {
@@ -86,20 +85,20 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen">
       <header className="border-b border-[var(--border)] bg-[var(--bg-soft)]">
-        <div className="mx-auto max-w-7xl px-4 py-4 md:px-6">
+        <div className="mx-auto max-w-7xl px-4 py-5 md:px-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-5">
-              <AppBrand compact />
-              <nav className="hidden items-center gap-4 md:flex">
+              <Link href="/" className="text-lg font-extrabold tracking-wide">
+                Student LMS
+              </Link>
+              <nav className="hidden items-center gap-2 md:flex">
                 <Link
                   href="/dashboard"
-                  className={`nav-link ${pathname === '/dashboard' ? 'active' : ''}`}
+                  className={`nav-btn ${pathname === '/dashboard' ? 'active' : ''}`}
                 >
                   All Days
                 </Link>
-                <Link href="/" className="nav-link">
-                  Home
-                </Link>
+
               </nav>
             </div>
 
@@ -114,15 +113,17 @@ export default function DashboardLayout({
           <nav className="mt-3 flex gap-2 overflow-x-auto pb-1 md:hidden">
             <Link
               href="/dashboard"
-              className={`rounded-full border px-3 py-1.5 text-sm ${
-                pathname === '/dashboard' ? 'nav-link active' : 'nav-link'
-              }`}
+              className={`nav-btn ${pathname === '/dashboard' ? 'active' : ''}`}
             >
               All Days
             </Link>
-            <Link href="/" className="rounded-full border px-3 py-1.5 text-sm nav-link">
+            <span
+              className="nav-btn pointer-events-none select-none opacity-50"
+              aria-disabled="true"
+              title="Home is disabled while logged in"
+            >
               Home
-            </Link>
+            </span>
           </nav>
         </div>
 

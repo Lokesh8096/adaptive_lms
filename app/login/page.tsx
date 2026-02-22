@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { FormEvent, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import PublicHeader from '@/components/public-header'
 import { getAccessContext, normalizeEmail } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
 
@@ -134,57 +133,56 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <PublicHeader />
+    <div className="min-h-screen flex items-center justify-center px-4 py-8">
+      <form
+        onSubmit={handleLogin}
+        className="surface-card-strong w-full max-w-lg space-y-4 p-6 md:p-8 reveal-up"
+      >
+        <h1 className="text-3xl font-bold">Student Login</h1>
+        <p className="text-sm muted-text">
+          Login with your allowed email. Forgot password? use{' '}
+          <span className="font-semibold">{DEFAULT_STUDENT_PASSWORD}</span>.
+        </p>
 
-      <main className="mx-auto flex max-w-7xl items-center justify-center px-4 py-10 md:px-6 md:py-14">
-        <form
-          onSubmit={handleLogin}
-          className="surface-card-strong w-full max-w-lg space-y-4 p-6 md:p-8"
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+
+        {errorMessage && (
+          <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-2">
+            {errorMessage}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="quick-btn w-full disabled:opacity-60"
         >
-          <h1 className="text-3xl font-bold">Student Login</h1>
-          <p className="text-sm muted-text">
-            Login with your allowed email. Forgot password? use{' '}
-            <span className="font-semibold">{DEFAULT_STUDENT_PASSWORD}</span>.
-          </p>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
 
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-
-          {errorMessage && (
-            <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-2">
-              {errorMessage}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="quick-btn w-full disabled:opacity-60"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-
-          <p className="text-sm muted-text">
-            New student?{' '}
-            <Link href="/register" className="text-blue-600 underline">
-              Register here
-            </Link>
-          </p>
-        </form>
-      </main>
+        <div className="flex flex-wrap items-center gap-2 text-sm muted-text">
+          <span>New student?</span>
+          <Link href="/register" className="nav-btn">
+            Register
+          </Link>
+          <Link href="/" className="nav-btn">
+            Home
+          </Link>
+        </div>
+      </form>
     </div>
   )
 }

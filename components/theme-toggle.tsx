@@ -2,7 +2,17 @@
 
 import { useState } from 'react'
 
-export default function ThemeToggle() {
+type ThemeToggleProps = {
+  className?: string
+  darkLabel?: string
+  lightLabel?: string
+}
+
+export default function ThemeToggle({
+  className,
+  darkLabel = 'Light Mode',
+  lightLabel = 'Dark Mode',
+}: ThemeToggleProps) {
   const [isDark, setIsDark] = useState<boolean>(() => {
     if (typeof document === 'undefined') return false
     return document.documentElement.classList.contains('dark')
@@ -19,10 +29,10 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="theme-toggle"
+      className={className ?? 'theme-toggle'}
       aria-label="Toggle dark mode"
     >
-      {isDark ? 'Light Mode' : 'Dark Mode'}
+      {isDark ? darkLabel : lightLabel}
     </button>
   )
 }

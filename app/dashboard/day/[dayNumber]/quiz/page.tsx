@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
+import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
 import {
   QUIZ_QUESTION_COUNT,
@@ -42,6 +43,12 @@ export default function QuizPage() {
   const [isUnlocked, setIsUnlocked] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [submitted, setSubmitted] = useState(false)
+  const [progressState, setProgressState] = useState({
+    recapCompleted: false,
+    interviewCompleted: false,
+    scenarioCompleted: false,
+    quizCompleted: false,
+  })
 
   useEffect(() => {
     let active = true
@@ -63,7 +70,9 @@ export default function QuizPage() {
 
       const { data: progress, error: progressError } = await supabase
         .from('student_day_progress')
-        .select('scenario_completed')
+        .select(
+          'recap_completed,interview_completed,scenario_completed,quiz_completed'
+        )
         .eq('student_id', userData.user.id)
         .eq('day_number', dayNumber)
         .maybeSingle()
@@ -74,6 +83,12 @@ export default function QuizPage() {
 
       const unlocked = Boolean(progress?.scenario_completed)
       setIsUnlocked(unlocked)
+      setProgressState({
+        recapCompleted: Boolean(progress?.recap_completed),
+        interviewCompleted: Boolean(progress?.interview_completed),
+        scenarioCompleted: Boolean(progress?.scenario_completed),
+        quizCompleted: Boolean(progress?.quiz_completed),
+      })
 
       if (!unlocked) {
         if (active) setLoading(false)
@@ -161,7 +176,13 @@ export default function QuizPage() {
 
     if (error) {
       console.error('Failed to save quiz score', error)
+      return
     }
+
+    setProgressState((prev) => ({
+      ...prev,
+      quizCompleted: true,
+    }))
   }
 
   if (dayNumber === null) {
@@ -175,14 +196,28 @@ export default function QuizPage() {
   if (!isUnlocked) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold">Quiz - Day {dayNumber}</h1>
-        <p>Complete scenario target to unlock quiz.</p>
-        <Link
-          href={`/dashboard/day/${dayNumber}/scenario`}
-          className="text-blue-600 underline"
-        >
-          Go to Scenario
-        </Link>
+        <LearningPathNav
+          dayNumber={dayNumber}
+          currentSection="quiz"
+          progress={{
+            recapCompleted: progressState.recapCompleted,
+            interviewCompleted: progressState.interviewCompleted,
+            scenarioCompleted: progressState.scenarioCompleted,
+            quizCompleted: progressState.quizCompleted,
+          }}
+        />
+        <div className="surface-card p-5">
+          <h1 className="text-2xl font-bold">Quiz - Day {dayNumber}</h1>
+          <p className="mt-2 muted-text">
+            Complete scenario target to unlock quiz.
+          </p>
+          <Link
+            href={`/dashboard/day/${dayNumber}/scenario`}
+            className="quick-btn mt-4 inline-block"
+          >
+            Go to Scenario
+          </Link>
+        </div>
       </div>
     )
   }
@@ -195,6 +230,17 @@ export default function QuizPage() {
     const mistakes = reviewRows.filter((row) => !row.isCorrect)
     return (
       <div className="space-y-8">
+        <LearningPathNav
+          dayNumber={dayNumber}
+          currentSection="quiz"
+          progress={{
+            recapCompleted: progressState.recapCompleted,
+            interviewCompleted: progressState.interviewCompleted,
+            scenarioCompleted: progressState.scenarioCompleted,
+            quizCompleted: true,
+          }}
+        />
+
         <div className="surface-card p-5 md:p-6">
           <h1 className="text-2xl font-bold md:text-3xl">Quiz Review - Day {dayNumber}</h1>
           <p className="mt-2 text-lg font-semibold">
@@ -245,6 +291,18 @@ export default function QuizPage() {
           Attempt all quiz questions and finish to save score.
         </p>
       </div>
+
+      <LearningPathNav
+        dayNumber={dayNumber}
+        currentSection="quiz"
+        progress={{
+          recapCompleted: progressState.recapCompleted,
+          interviewCompleted: progressState.interviewCompleted,
+          scenarioCompleted: progressState.scenarioCompleted,
+          quizCompleted: progressState.quizCompleted,
+        }}
+      />
+
       <p className="text-sm muted-text">
         Question {currentIndex + 1} of {questions.length} | Answered {answeredCount}
       </p>

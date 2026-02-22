@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
 import { recapContent } from '@/lib/recapContent'
 import { normalizeStringArray, parseDayNumber } from '@/lib/helpers'
@@ -44,6 +45,11 @@ export default function RecapPage() {
   const [checked, setChecked] = useState<string[]>([])
   const [userId, setUserId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [downstreamProgress, setDownstreamProgress] = useState({
+    interviewCompleted: false,
+    scenarioCompleted: false,
+    quizCompleted: false,
+  })
 
   useEffect(() => {
     let active = true
@@ -65,7 +71,7 @@ export default function RecapPage() {
 
       const { data: progress, error } = await supabase
         .from('student_day_progress')
-        .select('recap_checked')
+        .select('recap_checked,interview_completed,scenario_completed,quiz_completed')
         .eq('student_id', data.user.id)
         .eq('day_number', dayNumber)
         .maybeSingle()
@@ -77,6 +83,11 @@ export default function RecapPage() {
 
       setUserId(data.user.id)
       setChecked(normalizeStringArray(progress?.recap_checked))
+      setDownstreamProgress({
+        interviewCompleted: Boolean(progress?.interview_completed),
+        scenarioCompleted: Boolean(progress?.scenario_completed),
+        quizCompleted: Boolean(progress?.quiz_completed),
+      })
       setLoading(false)
     }
 
@@ -134,6 +145,18 @@ export default function RecapPage() {
           Mark all topics complete to unlock interview.
         </p>
       </div>
+
+      <LearningPathNav
+        dayNumber={dayNumber}
+        currentSection="recap"
+        progress={{
+          recapCompleted,
+          interviewCompleted: downstreamProgress.interviewCompleted,
+          scenarioCompleted: downstreamProgress.scenarioCompleted,
+          quizCompleted: downstreamProgress.quizCompleted,
+        }}
+      />
+
       <p className="text-sm muted-text">
         Completed {checked.length} of {totalTopics}
       </p>

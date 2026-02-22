@@ -63,6 +63,15 @@ export default function DashboardPage() {
     return count
   }
 
+  const totalDays = days.length
+  const fullyCompletedDays = days.filter(
+    (dayNumber) => getCompletedCount(progressByDay[dayNumber]) === 4
+  ).length
+  const inProgressDays = days.filter((dayNumber) => {
+    const completed = getCompletedCount(progressByDay[dayNumber])
+    return completed > 0 && completed < 4
+  }).length
+
   return (
     <div className="space-y-6">
       <div className="surface-card p-5 md:p-6">
@@ -70,6 +79,21 @@ export default function DashboardPage() {
         <p className="mt-2 text-sm muted-text">
           Continue where you left off. Each day has recap, interview, scenario, and quiz.
         </p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="interactive-card reveal-up p-4">
+          <p className="text-xs muted-text">Total Days</p>
+          <p className="mt-1 text-2xl font-bold">{totalDays}</p>
+        </div>
+        <div className="interactive-card reveal-up p-4" style={{ animationDelay: '70ms' }}>
+          <p className="text-xs muted-text">Completed</p>
+          <p className="mt-1 text-2xl font-bold">{fullyCompletedDays}</p>
+        </div>
+        <div className="interactive-card reveal-up p-4" style={{ animationDelay: '140ms' }}>
+          <p className="text-xs muted-text">In Progress</p>
+          <p className="mt-1 text-2xl font-bold">{inProgressDays}</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">

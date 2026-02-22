@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import AppBrand from '@/components/app-brand'
 import ThemeToggle from '@/components/theme-toggle'
 import { getAccessContext } from '@/lib/auth'
 
@@ -26,26 +25,28 @@ export default function PublicHeader() {
 
   return (
     <header className="border-b border-[var(--border)] bg-[var(--bg-soft)]">
-      <div className="mx-auto max-w-7xl px-4 py-4 md:px-6">
+      <div className="mx-auto max-w-7xl px-4 py-5 md:px-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <AppBrand />
+          <Link href="/" className="text-xl font-extrabold tracking-wide">
+            Adaptive LMS
+          </Link>
 
-          <nav className="flex flex-wrap items-center gap-5 text-sm md:text-base">
-            <Link href="/" className="nav-link active">
+          <nav className="flex flex-wrap items-center gap-2 text-sm md:text-base">
+            <Link href="/" className="nav-btn active">
               Home
             </Link>
-            <Link href="/register" className="nav-link">
+            <Link href="/register" className="nav-btn">
               Programs
             </Link>
-            <Link href="/dashboard" className="nav-link">
+            <Link href="/dashboard" className="nav-btn">
               Learning
             </Link>
             {isAdmin && (
-              <Link href="/admin" className="nav-link">
+              <Link href="/admin" className="nav-btn">
                 Admin
               </Link>
             )}
-            <Link href="/login" className="nav-link">
+            <Link href="/login" className="nav-btn">
               Login
             </Link>
             <ThemeToggle />

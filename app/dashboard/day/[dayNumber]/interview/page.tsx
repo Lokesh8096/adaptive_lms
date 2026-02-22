@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
+import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
 import {
   INTERVIEW_REQUIRED_COUNT,
@@ -18,7 +19,6 @@ type Question = {
   id: string
   prompt: string
   correct_answer: string | null
-  answer?: string | null
 }
 
 export default function InterviewPage() {
@@ -35,6 +35,12 @@ export default function InterviewPage() {
   const [loading, setLoading] = useState(true)
   const [loadingMore, setLoadingMore] = useState(false)
   const [isUnlocked, setIsUnlocked] = useState(false)
+  const [progressState, setProgressState] = useState({
+    recapCompleted: false,
+    interviewCompleted: false,
+    scenarioCompleted: false,
+    quizCompleted: false,
+  })
 
   const targetCount = Math.min(INTERVIEW_REQUIRED_COUNT, totalCount)
   const hasMore = questions.length < totalCount
@@ -88,7 +94,9 @@ export default function InterviewPage() {
 
       const { data: progress, error } = await supabase
         .from('student_day_progress')
-        .select('recap_completed,interview_checked')
+        .select(
+          'recap_completed,interview_checked,interview_completed,scenario_completed,quiz_completed'
+        )
         .eq('student_id', data.user.id)
         .eq('day_number', dayNumber)
         .maybeSingle()
@@ -102,6 +110,12 @@ export default function InterviewPage() {
       setIsUnlocked(unlocked)
       setUserId(data.user.id)
       setChecked(normalizeStringArray(progress?.interview_checked))
+      setProgressState({
+        recapCompleted: Boolean(progress?.recap_completed),
+        interviewCompleted: Boolean(progress?.interview_completed),
+        scenarioCompleted: Boolean(progress?.scenario_completed),
+        quizCompleted: Boolean(progress?.quiz_completed),
+      })
 
       if (unlocked) {
         await loadQuestions(0, false)
@@ -134,7 +148,13 @@ export default function InterviewPage() {
 
       if (error) {
         console.error('Failed to sync interview completion', error)
+        return
       }
+
+      setProgressState((prev) => ({
+        ...prev,
+        interviewCompleted: isComplete,
+      }))
     }
 
     syncCompletion()
@@ -166,14 +186,28 @@ export default function InterviewPage() {
   if (!isUnlocked) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold">Interview - Day {dayNumber}</h1>
-        <p>Complete all recap checkboxes to unlock interview.</p>
-        <Link
-          href={`/dashboard/day/${dayNumber}/recap`}
-          className="text-blue-600 underline"
-        >
-          Go to Recap
-        </Link>
+        <LearningPathNav
+          dayNumber={dayNumber}
+          currentSection="interview"
+          progress={{
+            recapCompleted: progressState.recapCompleted,
+            interviewCompleted: progressState.interviewCompleted,
+            scenarioCompleted: progressState.scenarioCompleted,
+            quizCompleted: progressState.quizCompleted,
+          }}
+        />
+        <div className="surface-card p-5">
+          <h1 className="text-2xl font-bold">Interview - Day {dayNumber}</h1>
+          <p className="mt-2 muted-text">
+            Complete all recap checkboxes to unlock interview.
+          </p>
+          <Link
+            href={`/dashboard/day/${dayNumber}/recap`}
+            className="quick-btn mt-4 inline-block"
+          >
+            Go to Recap
+          </Link>
+        </div>
       </div>
     )
   }
@@ -186,6 +220,18 @@ export default function InterviewPage() {
           Check completed questions to unlock scenario.
         </p>
       </div>
+
+      <LearningPathNav
+        dayNumber={dayNumber}
+        currentSection="interview"
+        progress={{
+          recapCompleted: progressState.recapCompleted,
+          interviewCompleted: progressState.interviewCompleted || isComplete,
+          scenarioCompleted: progressState.scenarioCompleted,
+          quizCompleted: progressState.quizCompleted,
+        }}
+      />
+
       <p className="text-sm muted-text">
         Completed {checked.length} of {targetCount || 0}
       </p>
@@ -193,14 +239,14 @@ export default function InterviewPage() {
       {questions.length === 0 && <p>No interview questions available.</p>}
 
       {questions.map((q, index) => {
-        const answer = q.correct_answer ?? q.answer ?? null
+        const answer = (q.correct_answer ?? '').trim()
         return (
           <div key={q.id} className="surface-card p-4">
             <h3 className="font-medium">
               {index + 1}. {q.prompt}
             </h3>
 
-            {answer && (
+            {answer.length > 0 && (
               <p className="mt-2 muted-text">
                 <span className="font-medium">Answer:</span> {answer}
               </p>
@@ -218,24 +264,25 @@ export default function InterviewPage() {
         )
       })}
 
-      {hasMore && questions.length < targetCount && (
-        <button
-          onClick={loadMore}
-          disabled={loadingMore}
-          className="quick-btn disabled:opacity-60"
-        >
-          {loadingMore ? 'Loading...' : 'Load More'}
-        </button>
-      )}
+      <div className="flex gap-3 items-center">
+        {hasMore && questions.length < targetCount && (
+          <button
+            onClick={loadMore}
+            disabled={loadingMore}
+            className="quick-btn disabled:opacity-60"
+          >
+            {loadingMore ? 'Loading...' : 'Load More'}
+          </button>
+        )}
 
-      <Link
-        href={`/dashboard/day/${dayNumber}/scenario`}
-        className={`inline-block rounded-xl px-4 py-2 font-semibold text-white ${
-          isComplete ? 'bg-green-600' : 'bg-gray-400 pointer-events-none'
-        }`}
-      >
-        Continue to Scenario
-      </Link>
+        <Link
+          href={`/dashboard/day/${dayNumber}/scenario`}
+          className={`inline-block rounded-xl px-4 py-2 font-semibold text-white ${isComplete ? 'bg-green-600' : 'bg-gray-400 pointer-events-none'
+            }`}
+        >
+          Continue to Scenario
+        </Link>
+      </div>
     </div>
   )
 }
