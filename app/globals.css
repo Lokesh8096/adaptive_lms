@@ -1,26 +1,274 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #e8ebf0;
+  --bg-soft: #f0f3f8;
+  --card: #ffffff;
+  --card-strong: #f8fafe;
+  --text: #183d5e;
+  --muted: #5d7590;
+  --border: #d2dceb;
+  --primary: #0d66c2;
+  --primary-strong: #0a56a2;
+  --navy: #123c62;
+  --success: #0f8f60;
+  --danger: #bd3f53;
+  --warning: #ef8a17;
+  --accent-start: #4f7ce8;
+  --accent-end: #8b3fe8;
+  --shadow: 0 18px 36px rgba(19, 58, 96, 0.12);
+  --shadow-soft: 0 10px 22px rgba(19, 58, 96, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html.dark {
+  --bg: #0f1724;
+  --bg-soft: #131d2c;
+  --card: #18263a;
+  --card-strong: #112033;
+  --text: #e7f0ff;
+  --muted: #a8bdd8;
+  --border: #2a3f5e;
+  --primary: #3e8dff;
+  --primary-strong: #2f77df;
+  --navy: #0c1b2e;
+  --success: #2ebd89;
+  --danger: #ef6b7b;
+  --warning: #f3a742;
+  --shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 10px 22px rgba(0, 0, 0, 0.24);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(1200px 480px at 95% -10%, rgba(79, 124, 232, 0.2), transparent),
+    radial-gradient(900px 420px at -10% 0%, rgba(139, 63, 232, 0.12), transparent),
+    var(--bg);
+  color: var(--text);
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.8rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:not([type='checkbox']):not([type='radio']):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  accent-color: var(--primary);
+}
+
+button {
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead tr {
+  background: color-mix(in oklab, var(--bg-soft) 70%, var(--card));
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+th,
+td {
+  border-color: var(--border);
+}
+
+tbody tr:hover {
+  background: color-mix(in oklab, var(--bg-soft) 62%, transparent);
+}
+
+.top-announcement {
+  background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+  color: #ffffff;
+}
+
+.surface-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  border-radius: 1rem;
+}
+
+.surface-card-strong {
+  background: var(--card-strong);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 1rem;
+}
+
+.brand-wordmark {
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--navy);
+}
+
+.brand-wordmark .accent {
+  color: var(--primary);
+}
+
+.nav-link {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-link.active {
+  color: var(--primary);
+}
+
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.quick-btn {
+  border-radius: 0.75rem;
+  padding: 0.62rem 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+
+.quick-btn:hover {
+  background: var(--primary-strong);
+}
+
+.quick-btn.secondary {
+  background: var(--navy);
+}
+
+.quick-btn.success {
+  background: var(--success);
+}
+
+.muted-text {
+  color: var(--muted);
+}
+
+/* Theme-aware remapping for commonly used utility classes in this codebase */
+.bg-gray-100 {
+  background-color: var(--bg) !important;
+}
+
+.bg-white {
+  background-color: var(--card) !important;
+}
+
+.bg-gray-900 {
+  background-color: var(--navy) !important;
+}
+
+.bg-gray-800 {
+  background-color: var(--navy) !important;
+}
+
+.bg-gray-700 {
+  background-color: color-mix(in oklab, var(--navy) 82%, #ffffff) !important;
+}
+
+.bg-blue-600 {
+  background-color: var(--primary) !important;
+}
+
+.bg-green-600,
+.bg-emerald-600,
+.bg-emerald-700 {
+  background-color: var(--success) !important;
+}
+
+.bg-indigo-600,
+.bg-teal-600 {
+  background-color: var(--primary-strong) !important;
+}
+
+.bg-red-50 {
+  background-color: color-mix(in oklab, var(--danger) 14%, var(--card)) !important;
+}
+
+.bg-green-50 {
+  background-color: color-mix(in oklab, var(--success) 14%, var(--card)) !important;
+}
+
+.bg-gray-300 {
+  background-color: color-mix(in oklab, var(--border) 85%, var(--card)) !important;
+}
+
+.bg-gray-400 {
+  background-color: color-mix(in oklab, var(--muted) 60%, var(--card)) !important;
+}
+
+.text-gray-500,
+.text-gray-600,
+.text-gray-700 {
+  color: var(--muted) !important;
+}
+
+.text-blue-600 {
+  color: var(--primary) !important;
+}
+
+.text-red-700 {
+  color: var(--danger) !important;
+}
+
+.text-green-700 {
+  color: var(--success) !important;
+}
+
+.border,
+.border-t {
+  border-color: var(--border) !important;
+}
+
