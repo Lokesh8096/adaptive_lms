@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
@@ -20,6 +20,13 @@ type Question = {
   prompt: string
   correct_answer: string | null
 }
+
+const parseMultiline = (value: string): string[] =>
+  value
+    .replace(/\\r\\n/g, '\n')
+    .replace(/\\n/g, '\n')
+    .replace(/\r\n|\r/g, '\n')
+    .split('\n')
 
 export default function InterviewPage() {
   const params = useParams<{ dayNumber: string }>()
@@ -248,7 +255,13 @@ export default function InterviewPage() {
 
             {answer.length > 0 && (
               <p className="mt-2 muted-text">
-                <span className="font-medium">Answer:</span> {answer}
+                <span className="font-medium">Answer:</span>{' '}
+                {parseMultiline(answer).map((line, lineIndex, lines) => (
+                  <Fragment key={`${q.id}-answer-${lineIndex}`}>
+                    {line}
+                    {lineIndex < lines.length - 1 && <br />}
+                  </Fragment>
+                ))}
               </p>
             )}
 
@@ -264,7 +277,7 @@ export default function InterviewPage() {
         )
       })}
 
-      <div className="flex gap-3 items-center">
+      <div className="mt-1 flex flex-wrap items-center gap-4">
         {hasMore && questions.length < targetCount && (
           <button
             onClick={loadMore}

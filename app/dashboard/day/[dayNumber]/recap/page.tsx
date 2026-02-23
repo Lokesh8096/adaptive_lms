@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import LearningPathNav from '@/components/learning-path-nav'
@@ -13,6 +13,13 @@ type RecapTopic = {
   id: string
   title: string
   explanation: string
+  examples?: RecapExample[]
+}
+
+type RecapExample = {
+  language?: string
+  code?: string
+  explanation?: string
 }
 
 type RecapSection = {
@@ -20,6 +27,13 @@ type RecapSection = {
   title: string
   topics: RecapTopic[]
 }
+
+const parseMultiline = (value: string): string[] =>
+  value
+    .replace(/\\r\\n/g, '\n')
+    .replace(/\\n/g, '\n')
+    .replace(/\r\n|\r/g, '\n')
+    .split('\n')
 
 export default function RecapPage() {
   const params = useParams<{ dayNumber: string }>()
@@ -168,7 +182,70 @@ export default function RecapPage() {
           {section.topics.map((topic) => (
             <div key={topic.id} className="surface-card p-4">
               <h3 className="font-medium">{topic.title}</h3>
-              <p className="mt-2 muted-text">{topic.explanation}</p>
+              <p className="mt-2 muted-text">
+                {parseMultiline(topic.explanation).map((line, index, lines) => (
+                  <Fragment key={`${topic.id}-line-${index}`}>
+                    {line}
+                    {index < lines.length - 1 && <br />}
+                  </Fragment>
+                ))}
+              </p>
+
+              {Array.isArray(topic.examples) && topic.examples.length > 0 && (
+                <div className="mt-4 space-y-4">
+                  {topic.examples.map((example, exampleIndex) => {
+                    const language =
+                      typeof example.language === 'string'
+                        ? example.language.trim()
+                        : ''
+                    const code =
+                      typeof example.code === 'string'
+                        ? parseMultiline(example.code).join('\n')
+                        : ''
+                    const exampleExplanation =
+                      typeof example.explanation === 'string'
+                        ? example.explanation
+                        : ''
+
+                    if (!code && !exampleExplanation) return null
+
+                    return (
+                      <div
+                        key={`${topic.id}-example-${exampleIndex}`}
+                        className="rounded-xl border border-[var(--border)] bg-[var(--card-strong)] p-3"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-sm font-semibold">
+                            Example {exampleIndex + 1}
+                          </p>
+                          {language && (
+                            <span className="rounded-full bg-[var(--bg-soft)] px-2 py-0.5 text-xs font-semibold uppercase tracking-wide">
+                              {language}
+                            </span>
+                          )}
+                        </div>
+
+                        {code && (
+                          <pre className="mt-2 overflow-x-auto rounded-lg bg-gray-900 p-3 text-xs text-white md:text-sm">
+                            <code>{code}</code>
+                          </pre>
+                        )}
+
+                        {exampleExplanation && (
+                          <p className="mt-2 text-sm muted-text">
+                            {parseMultiline(exampleExplanation).map((line, index, lines) => (
+                              <Fragment key={`${topic.id}-example-${exampleIndex}-line-${index}`}>
+                                {line}
+                                {index < lines.length - 1 && <br />}
+                              </Fragment>
+                            ))}
+                          </p>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
 
               <label className="mt-3 inline-flex items-center gap-2">
                 <input

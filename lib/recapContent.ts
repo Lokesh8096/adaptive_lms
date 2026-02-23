@@ -2,23 +2,167 @@ export const recapContent = {
   1: [
     {
       id: "sc_day_1",
-      title: "Intro to Tech",
+      title: "HTML",
       topics: [
+
         {
-          id: "sc_day_1_t1",
-          title: "Concept Overview",
-          explanation: "This section gives you a clear conceptual foundation for \"Intro to Tech\". You will learn the main ideas, definitions, and principles that underpin this area. Understanding these concepts first makes the hands-on work and assignments much easier. Pay attention to how the pieces fit together and how they relate to the rest of the curriculum. Take notes and revisit any part that feels unclear before moving to practice. The concept overview sets the stage for everything you will do in this day's learning."
+          id: "html_t1",
+          title: "Introduction to HTML",
+          explanation: "HTML stands for HyperText Markup Language.\nIt is the foundation of every website on the internet.\nHTML defines the structure and layout of web pages.\nIt is not a programming language because it does not perform logical operations.\nInstead, it is a markup language that structures content using tags.\nHTML works together with CSS (for styling) and JavaScript (for interactivity).\nEvery browser like Chrome, Edge, or Firefox reads HTML and renders a visual page.\nHTML5 is the latest version and introduced semantic tags and modern APIs.\nUnderstanding HTML deeply is mandatory before learning frontend frameworks like React, Angular, or Vue."
         },
+
         {
-          id: "sc_day_1_t2",
-          title: "Hands-on Practice",
-          explanation: "Here you apply the concepts of \"Intro to Tech\" through guided exercises and examples. You will follow step-by-step instructions, write code or perform tasks, and see results in real time. Hands-on practice is where theoretical knowledge turns into practical skill. Use the editor, run your code, and experiment with small changes to deepen your understanding. If something does not work as expected, use the concepts from the overview to debug. Repeating and varying the exercises will help you retain what you learn and prepare you for the mini assignment."
+          id: "html_t2",
+          title: "HTML Document Structure (Practical)",
+          explanation: "Every HTML document follows a standard skeleton structure.\nThis ensures proper browser rendering and compatibility.\nThe document starts with DOCTYPE declaration.\nThe root element is html.\nHead contains metadata.\nBody contains visible content.\nA well-structured document improves SEO and maintainability.",
+          examples: [
+            {
+              language: "html",
+              code: "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>My Page</title>\n</head>\n<body>\n<h1>Hello World</h1>\n</body>\n</html>",
+              explanation: "DOCTYPE defines HTML5 version.\nhtml is root element.\nhead contains metadata.\nmeta charset defines encoding.\nviewport helps responsive design.\ntitle sets browser tab name.\nbody contains visible content."
+            }
+          ]
         },
+
         {
-          id: "sc_day_1_t3",
-          title: "Mini Assignment / Implementation",
-          explanation: "This mini assignment or implementation task lets you use what you have learned in \"Intro to Tech\". You will build, implement, or solve something that ties together the concepts and practice from this day. Completing it reinforces your learning and shows how well you have understood the material. Use the concept overview and hands-on practice as reference while you work. Do your best to finish the assignment; it is a key part of tracking your progress. Submitting your work helps you and your mentors see how you are doing and where to focus next."
+          id: "html_t3",
+          title: "HTML Elements & Tags (Theory)",
+          explanation: "An HTML element consists of an opening tag, content, and closing tag.\nExample: p Hello p.\nSome tags are self-closing like img and br.\nTags must be properly nested.\nImproper nesting causes unpredictable rendering.\nElements can contain attributes.\nBlock elements take full width.\nInline elements take only required space.\nUnderstanding tag behavior is crucial for layout design."
+        },
+
+        {
+          id: "html_t4",
+          title: "Headings and Paragraphs (Practical)",
+          explanation: "Headings define content hierarchy.\nh1 is highest importance.\nh6 is lowest importance.\nParagraph tag groups textual content.\nProper heading structure improves SEO ranking.\nSearch engines analyze headings to understand page structure.",
+          examples: [
+            {
+              language: "html",
+              code: "<h1>Main Title</h1>\n<h2>Sub Title</h2>\n<p>This is a paragraph explaining content.</p>",
+              explanation: "h1 defines primary heading.\nh2 defines subsection.\np defines paragraph.\nProper hierarchy improves accessibility."
+            }
+          ]
+        },
+
+        {
+          id: "html_t5",
+          title: "Text Formatting Tags (Theory)",
+          explanation: "Text formatting tags enhance readability.\nstrong gives semantic importance.\nem gives emphasis.\nb and i provide visual styling but no semantic meaning.\nmark highlights text.\ndel represents deleted content.\nsub and sup are used for scientific formulas.\nUsing semantic formatting improves accessibility."
+        },
+
+        {
+          id: "html_t6",
+          title: "Lists (Practical)",
+          explanation: "Lists organize grouped data.\nUnordered lists use bullets.\nOrdered lists use numbers.\nDescription lists define terms and definitions.\nLists are used in navigation menus and feature sections.",
+          examples: [
+            {
+              language: "html",
+              code: "<ul>\n<li>HTML</li>\n<li>CSS</li>\n</ul>\n\n<ol>\n<li>Step 1</li>\n<li>Step 2</li>\n</ol>",
+              explanation: "ul creates bullet list.\nol creates numbered list.\nli defines list item."
+            }
+          ]
+        },
+
+        {
+          id: "html_t7",
+          title: "Links and Navigation (Practical)",
+          explanation: "Anchor tag creates hyperlinks.\nLinks connect web pages.\nAbsolute URLs link external sites.\nRelative URLs link internal pages.\ntarget blank opens new tab.\nNavigation improves usability.",
+          examples: [
+            {
+              language: "html",
+              code: "<a href=\"https://google.com\" target=\"_blank\">Visit Google</a>",
+              explanation: "href defines link destination.\ntarget blank opens in new tab."
+            }
+          ]
+        },
+
+        {
+          id: "html_t8",
+          title: "Images (Practical)",
+          explanation: "Images enhance visual presentation.\nimg is self-closing tag.\nsrc defines image path.\nalt improves accessibility and SEO.\nWidth and height control size.\nOptimized images improve performance.",
+          examples: [
+            {
+              language: "html",
+              code: "<img src=\"image.jpg\" alt=\"Sample\" width=\"200\">",
+              explanation: "src sets image path.\nalt provides alternative text.\nwidth controls size."
+            }
+          ]
+        },
+
+        {
+          id: "html_t9",
+          title: "Tables (Practical)",
+          explanation: "Tables display structured tabular data.\nThey should not be used for layout.\ntr defines row.\nth defines header.\ntd defines data cell.\ncolspan and rowspan merge cells.",
+          examples: [
+            {
+              language: "html",
+              code: "<table border=\"1\">\n<tr>\n<th>Name</th>\n<th>Age</th>\n</tr>\n<tr>\n<td>John</td>\n<td>25</td>\n</tr>\n</table>",
+              explanation: "table defines table.\ntr defines row.\nth defines header cell.\ntd defines data cell."
+            }
+          ]
+        },
+
+        {
+          id: "html_t10",
+          title: "Forms and Input Elements (Practical)",
+          explanation: "Forms collect user data.\nUsed in login and registration systems.\nForm uses GET or POST method.\nDifferent input types collect different data.\nValidation ensures correct submission.",
+          examples: [
+            {
+              language: "html",
+              code: "<form method=\"POST\">\n<label>Email:</label>\n<input type=\"email\" required>\n<input type=\"submit\">\n</form>",
+              explanation: "form wraps input fields.\nmethod defines HTTP method.\nrequired ensures validation."
+            }
+          ]
+        },
+
+        {
+          id: "html_t11",
+          title: "HTML Attributes (Theory)",
+          explanation: "Attributes provide additional information about elements.\nCommon attributes include id, class, style, title.\nGlobal attributes apply to all elements.\nAttributes help in styling and scripting.\nCorrect usage improves maintainability."
+        },
+
+        {
+          id: "html_t12",
+          title: "Semantic HTML5 (Theory)",
+          explanation: "Semantic elements describe content meaning.\nExamples include header, footer, article, section, nav, main.\nThey improve SEO and accessibility.\nSearch engines understand semantic structure better.\nModern web development strongly recommends semantic usage."
+        },
+
+        {
+          id: "html_t13",
+          title: "Multimedia (Practical)",
+          explanation: "HTML supports audio and video embedding.\nControls attribute provides play and pause options.\nMultiple source tags ensure compatibility.\nIframe embeds external content like YouTube.",
+          examples: [
+            {
+              language: "html",
+              code: "<video controls width=\"300\">\n<source src=\"video.mp4\" type=\"video/mp4\">\n</video>",
+              explanation: "video embeds media.\ncontrols shows playback buttons.\nsource defines media file."
+            }
+          ]
+        },
+
+        {
+          id: "html_t14",
+          title: "Meta Tags (Theory)",
+          explanation: "Meta tags provide metadata about webpage.\nCharset defines encoding.\nViewport ensures responsive behavior.\nDescription improves SEO ranking.\nKeywords describe page content.\nMeta tags are placed inside head section."
+        },
+
+        {
+          id: "html_t15",
+          title: "HTML Entities (Theory)",
+          explanation: "Entities display reserved characters.\nFor example less than symbol uses entity code.\nNon-breaking space prevents line break.\nCopyright symbol uses entity.\nEntities ensure correct rendering."
+        },
+
+        {
+          id: "html_t16",
+          title: "Global Attributes (Theory)",
+          explanation: "Global attributes apply to all elements.\nExamples include hidden, draggable, contenteditable, spellcheck.\nTabindex controls keyboard navigation.\nThey improve interactivity and accessibility."
+        },
+
+        {
+          id: "html_t17",
+          title: "HTML APIs (Theory)",
+          explanation: "HTML5 introduced browser APIs.\nGeolocation API fetches user location.\nWeb Storage API stores data locally.\nDrag and Drop API allows draggable elements.\nWeb Workers run scripts in background.\nThese APIs improve performance and interactivity."
         }
+
       ]
     }
   ],
@@ -26,73 +170,556 @@ export const recapContent = {
   2: [
     {
       id: "sc_day_2",
-      title: "Intro to OS",
+      title: "CSS – Complete Core Concepts",
       topics: [
+
         {
-          id: "sc_day_2_t1",
-          title: "Concept Overview",
-          explanation: "This section gives you a clear conceptual foundation for \"Intro to OS\". You will learn the main ideas, definitions, and principles that underpin this area. Understanding these concepts first makes the hands-on work and assignments much easier. Pay attention to how the pieces fit together and how they relate to the rest of the curriculum. Take notes and revisit any part that feels unclear before moving to practice. The concept overview sets the stage for everything you will do in this day's learning."
+          id: "css_1",
+          title: "Introduction to CSS",
+          explanation: "CSS stands for Cascading Style Sheets.\nIt is used to style HTML elements and control visual presentation of web pages.\nWhile HTML defines structure, CSS defines design and layout.\nCSS controls colors, spacing, alignment, fonts, responsiveness, and animations.\nThe term Cascading means styles are applied based on priority rules.\nCSS allows separation of content and design, improving maintainability.\nModern web applications rely heavily on CSS for user experience.\nWithout CSS, websites appear plain and unstructured.\nLearning CSS is essential before advanced frontend development."
         },
+
         {
-          id: "sc_day_2_t2",
-          title: "Hands-on Practice",
-          explanation: "Here you apply the concepts of \"Intro to OS\" through guided exercises and examples. You will follow step-by-step instructions, write code or perform tasks, and see results in real time. Hands-on practice is where theoretical knowledge turns into practical skill. Use the editor, run your code, and experiment with small changes to deepen your understanding. If something does not work as expected, use the concepts from the overview to debug. Repeating and varying the exercises will help you retain what you learn and prepare you for the mini assignment."
+          id: "css_2",
+          title: "CSS Syntax",
+          explanation: "CSS follows a rule-based syntax.\nEach rule consists of a selector and a declaration block.\nThe declaration block contains properties and values.\nProperties define what to style.\nValues define how it should appear.\nEach declaration ends with a semicolon.\nProper syntax ensures browser correctly applies styles.",
+          examples: [
+            {
+              language: "css",
+              code: "p {\n  color: blue;\n  font-size: 16px;\n}",
+              explanation: "p is selector.\ncolor and font-size are properties.\nblue and 16px are values.\nCurly braces wrap declaration block."
+            }
+          ]
         },
+
         {
-          id: "sc_day_2_t3",
-          title: "Mini Assignment / Implementation",
-          explanation: "This mini assignment or implementation task lets you use what you have learned in \"Intro to OS\". You will build, implement, or solve something that ties together the concepts and practice from this day. Completing it reinforces your learning and shows how well you have understood the material. Use the concept overview and hands-on practice as reference while you work. Do your best to finish the assignment; it is a key part of tracking your progress. Submitting your work helps you and your mentors see how you are doing and where to focus next."
+          id: "css_3",
+          title: "Types of CSS (Inline, Internal, External)",
+          explanation: "CSS can be applied in three different ways.\nInline CSS is written directly inside HTML element using style attribute.\nInternal CSS is written inside style tag in head section.\nExternal CSS is written in separate .css file and linked using link tag.\nExternal CSS is recommended for large projects.\nIt improves reusability and maintainability.",
+          examples: [
+            {
+              language: "html",
+              code: "<!-- Inline -->\n<p style=\"color:red;\">Hello</p>\n\n<!-- Internal -->\n<style>\np { color: blue; }\n</style>\n\n<!-- External -->\n<link rel=\"stylesheet\" href=\"style.css\">",
+              explanation: "Inline affects single element.\nInternal affects entire page.\nExternal affects multiple pages."
+            }
+          ]
+        },
+
+        {
+          id: "css_4",
+          title: "CSS Comments",
+          explanation: "Comments are used to explain code.\nThey are ignored by browser.\nComments improve readability.\nUseful for large projects.\nThey help teams understand styling logic.",
+          examples: [
+            {
+              language: "css",
+              code: "/* This is a comment */\np {\n  color: green;\n}",
+              explanation: "Text inside slash star and star slash is ignored by browser."
+            }
+          ]
+        },
+
+        {
+          id: "css_5",
+          title: "CSS Selectors",
+          explanation: "Selectors target HTML elements.\nThey define which element receives style.\nUnderstanding selectors is critical for styling control.\nDifferent types provide flexibility in targeting elements."
+        },
+
+        {
+          id: "css_6",
+          title: "Simple Selectors",
+          explanation: "Simple selectors target elements directly.\nElement selector targets by tag name.\nClass selector uses dot notation.\nID selector uses hash notation.\nUniversal selector selects all elements.",
+          examples: [
+            {
+              language: "css",
+              code: "p { \ncolor: red;\n}\n.myClass{\ncolor: blue; \n}\n#myId { \ncolor: green;\n }\n* { \nmargin: 0; \n}",
+              explanation: "p selects all paragraph tags.\n'.myClass' selects elements with class.\n#myId selects element with ID.\n* selects all elements."
+            }
+          ]
+        },
+
+        {
+          id: "css_7",
+          title: "Combinator Selectors",
+          explanation: "Combinators define relationship between elements.\nDescendant selector targets nested elements.\nChild selector targets direct children.\nAdjacent sibling targets next sibling.\nGeneral sibling targets all siblings.",
+          examples: [
+            {
+              language: "css",
+              code: "div p { color: red; }\ndiv > p { color: blue; }\nh1 + p { color: green; }\nh1 ~ p { color: orange; }",
+              explanation: "div p selects all p inside div.\ndiv > p selects direct child.\nh1 + p selects immediate sibling.\nh1 ~ p selects all siblings."
+            }
+          ]
+        },
+
+        {
+          id: "css_8",
+          title: "Attribute Selectors",
+          explanation: "Attribute selectors target elements based on attribute values.\nUseful for forms and dynamic styling.\nCan match exact value or partial value.",
+          examples: [
+            {
+              language: "css",
+              code: "input[type=\"text\"] { border: 2px solid blue; }",
+              explanation: "Targets input elements where type equals text."
+            }
+          ]
+        },
+
+        {
+          id: "css_9",
+          title: "Pseudo-classes",
+          explanation: "Pseudo-classes define special state of elements.\nThey apply style when condition is met.\nCommon examples include hover, active, focus, nth-child.\nUsed heavily in interactive design.",
+          examples: [
+            {
+              language: "css",
+              code: "a:hover { color: red; }\nli:nth-child(2) { color: blue; }",
+              explanation: "hover applies when mouse is over element.\nnth-child selects specific child."
+            }
+          ]
+        },
+
+        {
+          id: "css_10",
+          title: "Pseudo-elements",
+          explanation: "Pseudo-elements style specific part of element.\nCommon examples include before, after, first-line, first-letter.\nUsed to add decorative content.",
+          examples: [
+            {
+              language: "css",
+              code: "p::first-letter { font-size: 30px; }\np::before { content: \"Note: \"; }",
+              explanation: "first-letter styles first character.\nbefore inserts content before element."
+            }
+          ]
+        },
+
+        {
+          id: "css_11",
+          title: "CSS Colors",
+          explanation: "Colors define visual identity.\nCan be defined using names, HEX, RGB, RGBA, HSL.\nRGBA allows transparency.\nColor contrast affects accessibility."
+        },
+
+        {
+          id: "css_12",
+          title: "CSS Backgrounds",
+          explanation: "Background properties style element background.\nIncludes background-color, background-image, background-repeat, background-size.\nUsed for design and branding."
+        },
+
+        {
+          id: "css_13",
+          title: "CSS Gradients",
+          explanation: "Gradients create smooth color transitions.\nLinear gradients move in straight line.\nRadial gradients move in circular pattern.\nGradients improve modern UI aesthetics.",
+          examples: [
+            {
+              language: "css",
+              code: "div {\n  background: linear-gradient(to right, red, blue);\n}",
+              explanation: "Creates smooth transition from red to blue."
+            }
+          ]
+        },
+
+        {
+          id: "css_14",
+          title: "CSS Units",
+          explanation: "CSS supports absolute and relative units.\nAbsolute units include px.\nRelative units include %, em, rem, vh, vw.\nRelative units improve responsiveness.\nUnderstanding units ensures scalable UI."
+        },
+
+        {
+          id: "css_15",
+          title: "CSS Box Model",
+          explanation: "Every element follows box model structure.\nIt includes content, padding, border, and margin.\nUnderstanding box model prevents layout issues."
+        },
+
+        {
+          id: "css_16",
+          title: "Margin",
+          explanation: "Margin creates outer spacing around element.\nIt separates elements from each other.\nCan be set individually or using shorthand.",
+          examples: [
+            {
+              language: "css",
+              code: "div { margin: 20px; }",
+              explanation: "Adds 20px outer spacing."
+            }
+          ]
+        },
+
+        {
+          id: "css_17",
+          title: "Padding",
+          explanation: "Padding creates inner spacing between content and border.\nImproves readability.\nCan be controlled individually.",
+          examples: [
+            {
+              language: "css",
+              code: "div { padding: 15px; }",
+              explanation: "Adds 15px space inside border."
+            }
+          ]
+        },
+
+        {
+          id: "css_18",
+          title: "Borders and Outline",
+          explanation: "Border creates visible boundary around element.\nOutline is similar but does not affect layout.\nUseful for highlighting elements.",
+          examples: [
+            {
+              language: "css",
+              code: "div {\n  border: 2px solid black;\n  outline: 3px dashed red;\n}",
+              explanation: "Border affects layout.\nOutline appears outside border."
+            }
+          ]
+        },
+
+        {
+          id: "css_19",
+          title: "Width and Height",
+          explanation: "Width and height define element size.\nCan use px, %, vh, vw.\nImportant for responsive layouts.",
+          examples: [
+            {
+              language: "css",
+              code: "div {\n  width: 200px;\n  height: 100px;\n}",
+              explanation: "Sets fixed dimensions."
+            }
+          ]
+        },
+
+        {
+          id: "css_20",
+          title: "CSS Text and Fonts",
+          explanation: "Text properties control alignment, spacing, decoration.\nFont properties control style and appearance.\nTypography directly affects user experience.",
+          examples: [
+            {
+              language: "css",
+              code: "p {\n  text-align: center;\n  font-family: Arial;\n  font-size: 18px;\n}",
+              explanation: "Centers text.\nSets font and size."
+            }
+          ]
+        },
+
+        {
+          id: "css_21",
+          title: "Google Fonts",
+          explanation: "Google Fonts provides free web fonts.\nThey improve design aesthetics.\nLinked using link tag.\nEnsures cross-browser compatibility.",
+          examples: [
+            {
+              language: "html",
+              code: "<link href=\"https://fonts.googleapis.com/css2?family=Roboto\" rel=\"stylesheet\">",
+              explanation: "Imports Roboto font from Google."
+            }
+          ]
+        },
+
+        {
+          id: "css_22",
+          title: "CSS Icons",
+          explanation: "Icons improve UI clarity.\nCan use icon libraries like Font Awesome.\nUsed in navigation and buttons."
+        },
+
+        {
+          id: "css_23",
+          title: "CSS Links and Lists",
+          explanation: "Links can be styled using pseudo-classes.\nLists can be customized using list-style property.",
+          examples: [
+            {
+              language: "css",
+              code: "a { text-decoration: none; }\nul { list-style: square; }",
+              explanation: "Removes underline.\nChanges bullet style."
+            }
+          ]
+        },
+
+        {
+          id: "css_24",
+          title: "CSS Tables",
+          explanation: "Tables can be styled using border-collapse, padding, and text alignment.\nImproves readability.",
+          examples: [
+            {
+              language: "css",
+              code: "table {\n  border-collapse: collapse;\n}",
+              explanation: "Removes double borders."
+            }
+          ]
+        },
+
+        {
+          id: "css_25",
+          title: "Display, Visibility and Position",
+          explanation: "Display controls layout behavior.\nVisibility controls element visibility.\nPosition controls element placement.\nStatic is default.\nRelative moves relative to normal position.\nAbsolute positions relative to parent.\nFixed stays relative to viewport.\nUnderstanding positioning is critical for UI design.",
+          examples: [
+            {
+              language: "css",
+              code: "div {\n  position: relative;\n  top: 20px;\n}",
+              explanation: "Moves element 20px down from normal position."
+            }
+          ]
         }
+
       ]
     }
   ],
 
-  3: [
-    {
-      id: "sc_day_3",
-      title: "Intro to Frontend",
-      topics: [
-        {
-          id: "sc_day_3_t1",
-          title: "Concept Overview",
-          explanation: "This section gives you a clear conceptual foundation for \"Intro to Frontend\". You will learn the main ideas, definitions, and principles that underpin this area. Understanding these concepts first makes the hands-on work and assignments much easier. Pay attention to how the pieces fit together and how they relate to the rest of the curriculum. Take notes and revisit any part that feels unclear before moving to practice. The concept overview sets the stage for everything you will do in this day's learning."
-        },
-        {
-          id: "sc_day_3_t2",
-          title: "Hands-on Practice",
-          explanation: "Here you apply the concepts of \"Intro to Frontend\" through guided exercises and examples. You will follow step-by-step instructions, write code or perform tasks, and see results in real time. Hands-on practice is where theoretical knowledge turns into practical skill. Use the editor, run your code, and experiment with small changes to deepen your understanding. If something does not work as expected, use the concepts from the overview to debug. Repeating and varying the exercises will help you retain what you learn and prepare you for the mini assignment."
-        },
-        {
-          id: "sc_day_3_t3",
-          title: "Mini Assignment / Implementation",
-          explanation: "This mini assignment or implementation task lets you use what you have learned in \"Intro to Frontend\". You will build, implement, or solve something that ties together the concepts and practice from this day. Completing it reinforces your learning and shows how well you have understood the material. Use the concept overview and hands-on practice as reference while you work. Do your best to finish the assignment; it is a key part of tracking your progress. Submitting your work helps you and your mentors see how you are doing and where to focus next."
-        }
-      ]
-    }
-  ],
+ 3: [
+  {
+    id: "sc_day_4",
+    title: "JavaScript – Core + Deep Core Concepts",
+    topics: [
+
+      {
+        id: "js_1",
+        title: "Variables (var, let, const)",
+        explanation: "Variables are used to store data so that it can be reused later in a program.\nIn JavaScript, variables can be declared using var, let, and const.\nThe difference between them is not just syntax but behavior in memory and scope.\n\nvar is function-scoped, meaning it is accessible throughout the function in which it is declared.\nIt can be redeclared and reassigned.\nBecause of this flexibility, it can cause accidental overwrites and bugs in large applications.\n\nlet was introduced in ES6.\nIt is block-scoped, meaning it only exists inside the curly braces where it is declared.\nIt can be reassigned but cannot be redeclared in the same scope.\nThis prevents accidental duplication of variables.\n\nconst is also block-scoped.\nIt must be initialized at the time of declaration.\nIt cannot be reassigned.\nHowever, if const holds an object or array, the contents can still be modified.\n\nIn modern JavaScript development, const is preferred by default.\nUse let only when you know the value will change.\nAvoid var in modern applications due to unpredictable behavior caused by hoisting and scope leakage.",
+        examples: [
+          {
+            language: "javascript",
+            code: "var a = 10;\nlet b = 20;\nconst c = 30;\n\nb = 25; // allowed\n// c = 35; // Error",
+            explanation: "var allows redeclaration.\nlet allows reassignment but not redeclaration.\nconst cannot be reassigned.\nBlock scope applies to let and const."
+          }
+        ]
+      },
+
+      {
+        id: "js_2",
+        title: "Data Types (Primitive & Non-Primitive)",
+        explanation: "JavaScript data types define what kind of value a variable holds.\nUnderstanding data types is critical because JavaScript is dynamically typed.\nThis means a variable can change type during execution.\n\nPrimitive data types include string, number, boolean, null, undefined, symbol, and bigint.\nPrimitive values are immutable.\nWhen assigned to another variable, a copy is created.\n\nNon-primitive data types include objects, arrays, and functions.\nThese are reference types.\nWhen assigned to another variable, the reference (memory address) is copied, not the actual value.\n\nThis difference between value copy and reference copy is extremely important.\nIt affects how changes propagate across variables.\nMisunderstanding this concept leads to common bugs in real-world applications."
+      },
+
+      {
+        id: "js_3",
+        title: "Type Coercion",
+        explanation: "Type coercion is the automatic or manual conversion of one data type into another.\nJavaScript performs implicit coercion in many operations.\nThis is one of the most confusing aspects for beginners.\n\nFor example, when using the plus operator with a string, JavaScript converts numbers to strings.\nWhen using minus operator, JavaScript converts strings to numbers.\n\nImplicit coercion can lead to unexpected results.\nTherefore, developers prefer strict equality (===) instead of loose equality (==).\n\nExplicit coercion is safer and clearer.\nIt is done using Number(), String(), Boolean().\nUnderstanding coercion is necessary to avoid logical errors in production systems.",
+        examples: [
+          {
+            language: "javascript",
+            code: "console.log('5' + 2); // '52'\nconsole.log('5' - 2); // 3\nconsole.log(Number('5')); // 5",
+            explanation: "Plus converts number to string.\nMinus converts string to number.\nNumber() explicitly converts string to number."
+          }
+        ]
+      },
+
+      {
+        id: "js_4",
+        title: "Scope (Global, Function, Block)",
+        explanation: "Scope defines where a variable is accessible.\nGlobal scope variables are accessible everywhere in the program.\nFunction scope variables are accessible only inside the function.\nBlock scope applies to variables declared with let and const.\n\nBlock scope means a variable declared inside an if statement or loop cannot be accessed outside that block.\n\nUnderstanding scope prevents variable pollution.\nIn large applications, improper scope handling causes naming conflicts and unpredictable behavior.\nScope also directly relates to closures and lexical environment."
+      },
+
+      {
+        id: "js_5",
+        title: "Hoisting",
+        explanation: "Hoisting is JavaScript's default behavior of moving declarations to the top of their scope during the memory creation phase.\nBefore code execution begins, JavaScript engine scans the code.\nIt allocates memory for variables and functions.\n\nvar variables are hoisted and initialized with undefined.\nlet and const are hoisted but not initialized.\nThey remain in Temporal Dead Zone.\n\nFunction declarations are completely hoisted with their definition.\nFunction expressions are not.\nUnderstanding hoisting explains why some variables appear undefined instead of throwing errors."
+      },
+
+      {
+        id: "js_6",
+        title: "Closures",
+        explanation: "A closure is formed when an inner function remembers variables from its outer function even after the outer function has finished executing.\nThis happens because functions in JavaScript carry their lexical environment.\n\nClosures allow data privacy and encapsulation.\nThey are heavily used in modules, callbacks, and event handlers.\n\nUnderstanding closures requires understanding scope chain and execution context.\nClosures are powerful but must be used carefully to avoid memory leaks."
+      },
+
+      {
+        id: "js_7",
+        title: "Execution Context",
+        explanation: "Execution context is the environment in which JavaScript code runs.\nThere are two phases: memory creation phase and execution phase.\nIn memory phase, variables are stored.\nIn execution phase, code runs line by line.\n\nThere is one global execution context.\nEach function call creates a new execution context.\nUnderstanding execution context helps in understanding hoisting, scope, and call stack behavior."
+      },
+
+      {
+        id: "js_8",
+        title: "Call Stack",
+        explanation: "Call stack is a data structure that keeps track of function calls.\nWhen a function is invoked, it is pushed onto the stack.\nWhen it completes, it is removed.\nJavaScript follows Last In First Out principle.\n\nIf too many functions are added without completing, stack overflow error occurs.\nUnderstanding call stack is important for debugging recursive functions."
+      },
+
+      {
+        id: "js_9",
+        title: "Event Loop",
+        explanation: "JavaScript is single-threaded.\nIt can execute only one task at a time.\nHowever, it handles asynchronous operations using event loop.\n\nWhen asynchronous operations like setTimeout or fetch are executed, they move to Web APIs.\nAfter completion, callbacks go to callback queue.\nEvent loop checks if call stack is empty.\nIf empty, it pushes callback into stack.\n\nThis mechanism allows JavaScript to handle non-blocking operations efficiently."
+      },
+
+      {
+        id: "js_10",
+        title: "this Keyword",
+        explanation: "The this keyword refers to the object that is currently executing the function.\nIts value depends on how the function is called.\n\nIn global scope, this refers to window object in browsers.\nIn object methods, this refers to that object.\nIn arrow functions, this does not have its own binding.\nIt inherits from parent scope.\n\nUnderstanding this is critical for object-oriented programming and event handling."
+      },
+
+      {
+        id: "js_11",
+        title: "Strict Mode",
+        explanation: "Strict mode enables stricter error checking.\nIt is activated using 'use strict'.\n\nIt prevents accidental creation of global variables.\nDisallows duplicate parameters.\nPrevents usage of reserved keywords.\nThrows errors for unsafe actions.\n\nStrict mode improves code reliability and security.\nIt is recommended in production applications."
+      }
+
+    ]
+  }
+],
 
   4: [
     {
-      id: "sc_day_4",
-      title: "Intro to Backend",
-      topics: [
+  id: "sc_day_4_complete",
+  title: "JavaScript Concepts",
+  topics: [
+
+    {
+      id: "js4_1",
+      title: "Objects",
+      explanation: "Objects are complex data structures used to store data in key-value format.\nObjects are reference types, meaning they are stored in heap memory and accessed via reference.\nWhen you assign an object to another variable, both variables point to the same memory location.\nThis is why modifying one affects the other.\n\nObjects allow grouping of related properties and behavior.\nThey form the foundation of JavaScript applications, especially in frameworks like React.\n\nInternally, JavaScript objects use hash maps for property storage.\nKeys are automatically converted to strings (except Symbols).",
+      examples: [
         {
-          id: "sc_day_4_t1",
-          title: "Concept Overview",
-          explanation: "This section gives you a clear conceptual foundation for \"Intro to Backend\". You will learn the main ideas, definitions, and principles that underpin this area. Understanding these concepts first makes the hands-on work and assignments much easier. Pay attention to how the pieces fit together and how they relate to the rest of the curriculum. Take notes and revisit any part that feels unclear before moving to practice. The concept overview sets the stage for everything you will do in this day's learning."
-        },
+          language: "javascript",
+          code: "const user = { name: 'Lokesh', age: 22 };\nconst copy = user;\ncopy.age = 25;\nconsole.log(user.age); // 25",
+          explanation: "Both variables reference the same object in memory."
+        }
+      ]
+    },
+
+    {
+      id: "js4_2",
+      title: "Object Methods",
+      explanation: "Object methods are functions stored as object properties.\nInside methods, 'this' refers to the object calling the method.\nThe value of 'this' depends on how the function is called.\nArrow functions do not bind their own 'this'.",
+      examples: [
         {
-          id: "sc_day_4_t2",
-          title: "Hands-on Practice",
-          explanation: "Here you apply the concepts of \"Intro to Backend\" through guided exercises and examples. You will follow step-by-step instructions, write code or perform tasks, and see results in real time. Hands-on practice is where theoretical knowledge turns into practical skill. Use the editor, run your code, and experiment with small changes to deepen your understanding. If something does not work as expected, use the concepts from the overview to debug. Repeating and varying the exercises will help you retain what you learn and prepare you for the mini assignment."
-        },
+          language: "javascript",
+          code: "const user = {\n  name: 'Lokesh',\n  greet() {\n    return `Hello ${this.name}`;\n  }\n};\nconsole.log(user.greet());",
+          explanation: "'this' refers to user object."
+        }
+      ]
+    },
+
+    {
+      id: "js4_3",
+      title: "Object Destructuring",
+      explanation: "Destructuring extracts properties from objects into variables.\nIt reduces repetitive object.property usage.\nWidely used in React props and API responses.",
+      examples: [
         {
-          id: "sc_day_4_t3",
-          title: "Mini Assignment / Implementation",
-          explanation: "This mini assignment or implementation task lets you use what you have learned in \"Intro to Backend\". You will build, implement, or solve something that ties together the concepts and practice from this day. Completing it reinforces your learning and shows how well you have understood the material. Use the concept overview and hands-on practice as reference while you work. Do your best to finish the assignment; it is a key part of tracking your progress. Submitting your work helps you and your mentors see how you are doing and where to focus next."
+          language: "javascript",
+          code: "const user = { name: 'Lokesh', age: 22 };\nconst { name, age } = user;\nconsole.log(name);",
+          explanation: "Extracts name and age into variables."
+        }
+      ]
+    },
+
+    {
+      id: "js4_4",
+      title: "Array Methods (map, filter, reduce)",
+      explanation: "map transforms elements.\nfilter selects elements.\nreduce accumulates values.\nThese are immutable methods and return new arrays.\nThey enable functional programming style.",
+      examples: [
+        {
+          language: "javascript",
+          code: "const nums = [1,2,3,4];\nconst doubled = nums.map(n => n*2);\nconst even = nums.filter(n => n%2===0);\nconst sum = nums.reduce((acc,n)=>acc+n,0);",
+          explanation: "map modifies.\nfilter selects.\nreduce combines."
+        }
+      ]
+    },
+
+    {
+      id: "js4_5",
+      title: "Spread vs Rest Operator",
+      explanation: "Spread expands elements.\nRest collects elements.\nBoth use same syntax but different behavior depending on context.",
+      examples: [
+        {
+          language: "javascript",
+          code: "const arr = [1,2,3];\nconst copy = [...arr];\n\nfunction sum(...nums){\n  return nums.reduce((a,b)=>a+b);\n}",
+          explanation: "Spread copies array.\nRest collects parameters."
+        }
+      ]
+    },
+
+    {
+      id: "js4_6",
+      title: "Shallow Copy vs Deep Copy",
+      explanation: "Shallow copy copies first-level properties only.\nNested objects remain shared.\nDeep copy duplicates entire structure.\nJSON methods create deep copy but fail for functions and undefined.",
+      examples: [
+        {
+          language: "javascript",
+          code: "const obj = { a:1, b:{c:2} };\nconst shallow = {...obj};\nshallow.b.c = 5;\nconsole.log(obj.b.c); // 5",
+          explanation: "Nested object still shared."
+        }
+      ]
+    },
+
+    {
+      id: "js4_7",
+      title: "Promises & Promise Chaining",
+      explanation: "Promise represents future result.\nStates: pending, fulfilled, rejected.\n.then() handles success.\n.catch() handles errors.\nChaining avoids callback nesting.\nEach .then returns new promise.",
+      examples: [
+        {
+          language: "javascript",
+          code: "fetch('https://api.example.com')\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.error(err));",
+          explanation: "Each then passes result forward."
+        }
+      ]
+    },
+
+    {
+      id: "js4_8",
+      title: "async/await",
+      explanation: "async makes function return promise.\nawait pauses execution until promise resolves.\nMakes async code readable like synchronous code.",
+      examples: [
+        {
+          language: "javascript",
+          code: "async function getData(){\n  const res = await fetch('https://api.example.com');\n  const data = await res.json();\n  console.log(data);\n}",
+          explanation: "Cleaner version of promise chaining."
+        }
+      ]
+    },
+
+    {
+      id: "js4_9",
+      title: "setTimeout & Event Loop",
+      explanation: "setTimeout schedules function in macrotask queue.\nEvent loop pushes callback to stack when stack is empty.\nMicrotasks (Promises) run before macrotasks.",
+      examples: [
+        {
+          language: "javascript",
+          code: "console.log('Start');\nsetTimeout(()=>console.log('Timeout'),0);\nPromise.resolve().then(()=>console.log('Promise'));\nconsole.log('End');",
+          explanation: "Output: Start, End, Promise, Timeout"
+        }
+      ]
+    },
+
+    {
+      id: "js4_10",
+      title: "DOM Manipulation",
+      explanation: "DOM is tree representation of HTML.\nJavaScript selects elements using querySelector.\nCan change content, style, attributes dynamically.",
+      examples: [
+        {
+          language: "javascript",
+          code: "const btn = document.querySelector('#btn');\nbtn.textContent = 'Clicked';",
+          explanation: "Modifies DOM element."
+        }
+      ]
+    },
+
+    {
+      id: "js4_11",
+      title: "Event Bubbling & Delegation",
+      explanation: "Bubbling means event moves from child to parent.\nCapturing is reverse order.\nDelegation attaches single listener to parent to handle child events.\nImproves performance.",
+      examples: [
+        {
+          language: "javascript",
+          code: "document.querySelector('#parent').addEventListener('click', (e)=>{\n  if(e.target.tagName === 'BUTTON'){\n    console.log('Button clicked');\n  }\n});",
+          explanation: "Event delegation example."
+        }
+      ]
+    },
+
+    {
+      id: "js4_12",
+      title: "Local Storage",
+      explanation: "Stores key-value pairs in browser.\nData persists even after closing browser.\nValues stored as strings.",
+      examples: [
+        {
+          language: "javascript",
+          code: "localStorage.setItem('name','Lokesh');\nconsole.log(localStorage.getItem('name'));",
+          explanation: "Stores and retrieves data."
+        }
+      ]
+    },
+
+    {
+      id: "js4_13",
+      title: "Modules (import/export)",
+      explanation: "Modules split code into reusable files.\nexport makes variables/functions available.\nimport consumes them.\nImproves maintainability.",
+      examples: [
+        {
+          language: "javascript",
+          code: "// file1.js\nexport const name = 'Lokesh';\n\n// file2.js\nimport { name } from './file1.js';",
+          explanation: "Basic module usage."
         }
       ]
     }
+
+  ]
+}
   ],
 
   5: [

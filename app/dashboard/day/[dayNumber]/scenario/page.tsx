@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 import LearningPathNav from '@/components/learning-path-nav'
 import { ensureDayProgressRow } from '@/lib/auth'
@@ -20,6 +20,13 @@ type Question = {
   prompt: string
   correct_answer: string | null
 }
+
+const parseMultiline = (value: string): string[] =>
+  value
+    .replace(/\\r\\n/g, '\n')
+    .replace(/\\n/g, '\n')
+    .replace(/\r\n|\r/g, '\n')
+    .split('\n')
 
 export default function ScenarioPage() {
   const params = useParams<{ dayNumber: string }>()
@@ -248,7 +255,13 @@ export default function ScenarioPage() {
 
             {answer.length > 0 && (
               <p className="muted-text mb-4">
-                <span className="font-medium">Answer:</span> {answer}
+                <span className="font-medium">Answer:</span>{' '}
+                {parseMultiline(answer).map((line, lineIndex, lines) => (
+                  <Fragment key={`${q.id}-answer-${lineIndex}`}>
+                    {line}
+                    {lineIndex < lines.length - 1 && <br />}
+                  </Fragment>
+                ))}
               </p>
             )}
 
@@ -264,24 +277,26 @@ export default function ScenarioPage() {
         )
       })}
 
-      {hasMore && questions.length < targetCount && (
-        <button
-          onClick={loadMore}
-          disabled={loadingMore}
-          className="quick-btn disabled:opacity-60"
-        >
-          {loadingMore ? 'Loading...' : 'Load More'}
-        </button>
-      )}
+      <div className="mt-1 flex flex-wrap items-center gap-4">
+        {hasMore && questions.length < targetCount && (
+          <button
+            onClick={loadMore}
+            disabled={loadingMore}
+            className="quick-btn disabled:opacity-60"
+          >
+            {loadingMore ? 'Loading...' : 'Load More'}
+          </button>
+        )}
 
-      <Link
-        href={`/dashboard/day/${dayNumber}/quiz`}
-        className={`inline-block rounded-xl px-4 py-2 font-semibold text-white ${
-          isComplete ? 'bg-green-600' : 'bg-gray-400 pointer-events-none'
-        }`}
-      >
-        Continue to Quiz
-      </Link>
+        <Link
+          href={`/dashboard/day/${dayNumber}/quiz`}
+          className={`inline-block rounded-xl px-4 py-2 font-semibold text-white ${
+            isComplete ? 'bg-green-600' : 'bg-gray-400 pointer-events-none'
+          }`}
+        >
+          Continue to Quiz
+        </Link>
+      </div>
     </div>
   )
 }
