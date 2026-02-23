@@ -18,6 +18,21 @@
   --accent-end: #8b3fe8;
   --shadow: 0 18px 36px rgba(19, 58, 96, 0.12);
   --shadow-soft: 0 10px 22px rgba(19, 58, 96, 0.08);
+  --home-bg-start: #f4f8ff;
+  --home-bg-mid: #edf2ff;
+  --home-bg-end: #e6eeff;
+  --home-text: #142f4d;
+  --home-muted: #5d7590;
+  --home-nav: #4f6681;
+  --home-border: rgba(20, 47, 77, 0.14);
+  --home-glass: rgba(255, 255, 255, 0.7);
+  --home-glass-hover: rgba(255, 255, 255, 0.9);
+  --home-label: #4268c7;
+  --home-highlight: #4f6fff;
+  --home-primary: #4f46e5;
+  --home-primary-hover: #4338ca;
+  --home-success: #10b981;
+  --home-success-hover: #059669;
 }
 
 html.dark {
@@ -36,6 +51,21 @@ html.dark {
   --warning: #f3a742;
   --shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
   --shadow-soft: 0 10px 22px rgba(0, 0, 0, 0.24);
+  --home-bg-start: #020617;
+  --home-bg-mid: #0f172a;
+  --home-bg-end: #1e293b;
+  --home-text: #ffffff;
+  --home-muted: #94a3b8;
+  --home-nav: #cbd5e1;
+  --home-border: rgba(255, 255, 255, 0.12);
+  --home-glass: rgba(255, 255, 255, 0.1);
+  --home-glass-hover: rgba(255, 255, 255, 0.2);
+  --home-label: #818cf8;
+  --home-highlight: #818cf8;
+  --home-primary: #4f46e5;
+  --home-primary-hover: #4338ca;
+  --home-success: #10b981;
+  --home-success-hover: #059669;
 }
 
 * {
