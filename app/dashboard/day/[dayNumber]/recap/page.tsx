@@ -28,12 +28,15 @@ type RecapSection = {
   topics: RecapTopic[]
 }
 
-const parseMultiline = (value: string): string[] =>
-  value
+const parseMultiline = (value: string | null | undefined): string[] => {
+  if (value == null) return []
+  const str = typeof value === 'string' ? value : String(value)
+  return str
     .replace(/\\r\\n/g, '\n')
     .replace(/\\n/g, '\n')
     .replace(/\r\n|\r/g, '\n')
     .split('\n')
+}
 
 export default function RecapPage() {
   const params = useParams<{ dayNumber: string }>()
@@ -262,9 +265,8 @@ export default function RecapPage() {
 
       <Link
         href={`/dashboard/day/${dayNumber}/interview`}
-        className={`inline-block rounded-xl px-4 py-2 font-semibold text-white ${
-          recapCompleted ? 'bg-blue-600 hover:opacity-95' : 'bg-gray-400 pointer-events-none'
-        }`}
+        className={`inline-block rounded-xl px-4 py-2 font-semibold text-white ${recapCompleted ? 'bg-blue-600 hover:opacity-95' : 'bg-gray-400 pointer-events-none'
+          }`}
       >
         Continue to Interview
       </Link>
