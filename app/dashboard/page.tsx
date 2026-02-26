@@ -120,11 +120,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <div className="interactive-card reveal-up p-4">
-          <p className="text-xs muted-text">Total Days</p>
-          <p className="mt-1 text-2xl font-bold">{totalDays}</p>
-        </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="interactive-card reveal-up p-4" style={{ animationDelay: '70ms' }}>
           <p className="text-xs muted-text">Completed</p>
           <p className="mt-1 text-2xl font-bold">{fullyCompletedDays}</p>
@@ -227,6 +223,25 @@ export default function DashboardPage() {
                     )
                   })}
                 </div>
+
+                {/* Practice Box — appears after batch is fully completed */}
+                {batchDone && (
+                  <Link
+                    href={`/dashboard/practice/${batchIndex + 1}`}
+                    className="flex items-center gap-4 rounded-2xl border-2 border-purple-400 bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-4 hover:from-purple-900/50 hover:to-blue-900/50 transition-all hover:shadow-lg hover:shadow-purple-500/20 group"
+                  >
+                    <span className="text-3xl">🔥</span>
+                    <div className="flex-1">
+                      <p className="font-bold text-purple-300 group-hover:text-purple-200">
+                        Practice Box — Batch {batchIndex + 1}
+                      </p>
+                      <p className="text-sm text-purple-400/80">
+                        Review all interview, scenario &amp; quiz Qs from Days {batch[0]}–{batch[batch.length - 1]}
+                      </p>
+                    </div>
+                    <span className="text-purple-400 group-hover:translate-x-1 transition-transform text-xl">→</span>
+                  </Link>
+                )}
               </section>
             )
           })}
