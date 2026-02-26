@@ -92,11 +92,14 @@ export default function QuizPage() {
     if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null }
     setTimeLeft(from)
     if (from <= 0) return
+    let remaining = from
     intervalRef.current = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) { clearInterval(intervalRef.current!); intervalRef.current = null; return 0 }
-        return prev - 1
-      })
+      remaining -= 1
+      setTimeLeft(remaining)
+      if (remaining <= 0) {
+        clearInterval(intervalRef.current!)
+        intervalRef.current = null
+      }
     }, 1000)
   }, [])
 
@@ -393,8 +396,8 @@ export default function QuizPage() {
 
       {/* Question card */}
       <div className={`surface-card p-5 border-l-4 transition-colors duration-200 ${feedback === 'correct' ? 'border-green-500' :
-          feedback === 'wrong' ? 'border-red-500' :
-            !isCurrentAttempted && timeLeft <= 10 ? 'border-orange-400' : 'border-transparent'
+        feedback === 'wrong' ? 'border-red-500' :
+          !isCurrentAttempted && timeLeft <= 10 ? 'border-orange-400' : 'border-transparent'
         }`}>
         <p className="font-semibold text-base mb-5 leading-snug">
           {currentIndex + 1}. {currentQuestion.prompt}
